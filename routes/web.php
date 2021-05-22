@@ -1,22 +1,21 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+
+Route::get('/', [HomeController::class, "index"])->name('dashboard');
+
+Route::prefix('categories')->group(function () {
+    Route::get('/', [CategoryController::class, "index"])->name('categories.all');
+    Route::get('/new', [CategoryController::class, "create"])->name('categories.new');
+    Route::post('/store', [CategoryController::class, "store"])->name('categories.store');
+    Route::get('/{category_id}/edit', [CategoryController::class, "edit"])->name('categories.edit');
+    Route::post('/{category_id}/update', [CategoryController::class, "update"])->name('categories.update');
+    Route::get('/{category_id}/delete', [CategoryController::class, "delete"])->name('categories.delete');
+    Route::get('/{category_id}/change/status', [CategoryController::class, "changeStatus"])->name('categories.status.change');
 });
-
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
