@@ -28,31 +28,55 @@
 
 @section('content')
 <table class="table table-success table-striped">
-        <tr>
-            <th> ID</th>
-            <th> Title</th>
-            <th>	Description </th>
-            <th> image</th>
-            <th> Status</th>
-            <th> Aaction</th>
-        </tr>
-            
-        @foreach ($category as $data)
-        <tr>
-            <td>{{$data->id}} </td>
-            <td> {{$data->title}} </td>
-            <td> {{$data->	description}} </td>
-            <td> {{$data->	image}} </td>
-            <td> {{$data->	status}} </td>
-            <td> <a class="btn btn-primary" href="{{route('categories.edit',$data->id)}}"> Edit</a>
-           </td>
-          
-        </tr>
-        @endforeach
-    </table>
+    <tr>
+        <th> ID</th>
+        <th> Title</th>
+        <th> Description </th>
+        <th> image</th>
+        <th> Status</th>
+        <th> Aaction</th>
+    </tr>
+
+    @foreach ($category as $data)
+    <tr>
+        <td>{{$data->id}} </td>
+        <td> {{$data->title}} </td>
+        <td> {{$data->description}} </td>
+        <td> {{$data->image}} </td>
+        <td> {{$data->status}} </td>
+        <td>
+            <div class="dropdown no-arrow mb-1">
+                <a class="btn btn-sm btn-icon-only text-dark" href="#" role="button" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-cog"></i>
+                </a>
+                <div class="dropdown-menu dropdown-menu-left shadow animated--fade-in"
+                    aria-labelledby="dropdownMenuButton" x-placement="bottom-start"
+                    style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+                    <a class="dropdown-item edit-product" href="{{ route('categories.edit',$data->id) }}"
+                        class="btn btn-warning" title="">
+                        <i class="fas fa-edit"></i>&nbsp;Edit
+                    </a>
+                    <a class="dropdown-item delete-product" href="{{ route('categories.delete',$data->id) }}"
+                        class="btn btn-danger" title=""><i class="far fa-trash-alt"></i>&nbsp;Delete</a>
+                    {{-- @if ($category->status == 1)
+                    <a class="dropdown-item change-status" href="javascript:void(0)" class="btn btn-danger" title=""
+                        onclick="decline('{{ route('admin.categories.status.change',$category->id) }}')"><i
+                        class="fas fa-times-circle"></i>&nbsp;Draft</a>
+                    @else
+                    <a class="dropdown-item change-status" href="javascript:void(0)" class="btn btn-danger" title=""
+                        onclick="approve('{{ route('admin.categories.status.change',$category->id) }}')"><i
+                            class="far fa-check-square"></i>&nbsp;Publish</a>
+                    @endif --}}
+                </div>
+            </div>
+        </td>
+
+    </tr>
+    @endforeach
+</table>
 
 
 
- <button type="button" class="btn btn-warning">Middle</button>
 
 @endsection
