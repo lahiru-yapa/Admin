@@ -31,6 +31,7 @@
         <div class="card-header">Create New Category hear </div>
         <div class="card-body text-primary">
             <form action="{{route('categories.store')}}" method="POST">
+
                 @csrf
             <div class="mb-3">
                 <label for="exampleInputEmail1" class="form-label">Category Title</label>
@@ -42,7 +43,7 @@
             </div>
              <button type="submit" class="btn btn-primary">Submit</button>
  
-            </form>
+    </form>
          </div>
         </div>
 </div>
