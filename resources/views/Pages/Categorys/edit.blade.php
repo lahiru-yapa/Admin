@@ -30,13 +30,10 @@
     <div class="card border-primary mb-3" style="max-width: 18rem;">
         <div class="card-header">Edit your existing Category hear </div>
         <div class="card-body text-primary">
-            <form action="{{route('categories.update',$category->id)}}" method="POST">
+            <form action="{{route('categories.update',$category->id)}}" method="POST" enctype="multipart/form-data">
 
                 @csrf
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Category id</label>
-                    <input type="text" class="form-control" name="id" value=" {{$category->id}}">
-                </div>
+
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Category Title</label>
                     <input type="text" class="form-control" name="title" value=" {{$category->title}}">
@@ -44,6 +41,17 @@
                 <div class="mb-3">
                     <label for="exampleInputPassword1" class="form-label">Discription</label>
                     <input type="text" class="form-control" name="description" value=" {{$category->description}}">
+                </div>
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label class="form-control-label">Image</label>
+                        <input type="file" class="form-control form-control-alternative dropify" name="images"
+                            id="inp_image" accept="image/jpg, image/jpeg, image/png" required>
+
+                        @if ($category->images)
+                        <img src="{{config('images.access_path').'/thumb/35x35/'.$category->images->name}}" alt="">
+                        @endif
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
 

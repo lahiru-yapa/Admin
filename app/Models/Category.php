@@ -11,5 +11,12 @@ class Category extends Model
     protected $fillable = [
         'title',
         'description',
+        'status',
+        'image'
+
     ];
+    public function images()
+    {
+        return $this->hasOne(Image::class, 'id', 'image');
+    }
 }

@@ -34,7 +34,7 @@
         <th> Description </th>
         <th> image</th>
         <th> Status</th>
-        <th> Aaction</th>
+        <th> Action</th>
     </tr>
 
     @foreach ($category as $data)
@@ -42,7 +42,11 @@
         <td>{{$data->id}} </td>
         <td> {{$data->title}} </td>
         <td> {{$data->description}} </td>
-        <td> {{$data->image}} </td>
+        <td>
+            @if ($data->images)
+            <img src="{{config('images.access_path').'/thumb/35x35/'.$data->images->name}}" alt="">
+            @endif
+        </td>
         <td> {{$data->status}} </td>
         <td>
             <div class="dropdown no-arrow mb-1">

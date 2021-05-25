@@ -21,25 +21,24 @@ class CategoryController extends Controller
     }
     public function edit($id)
     {
-        $response['category'] = CategoryFacade::getEditId($id);
+        $response['category'] = CategoryFacade::get($id);
 
         return view('Pages.Categorys.edit')->with($response);
     }
     public function store(Request $request)
     {
-        $response['category'] = CategoryFacade::addNew($request->all());
-        return view('Pages.Categorys.all')->with($response);
+        CategoryFacade::store($request->all());
+        return redirect()->route('categories.all');
     }
-    public function update(Request $request)
+    public function update(Request $request, $category_id)
     {
 
-        CategoryFacade::update($request->all());
+        CategoryFacade::update($category_id, $request->all());
         return redirect()->route('categories.all');
-        // return view('Pages.Categorys.all')->with($response);
     }
     public function delete(Request $request, $id)
     {
         $response['category'] = CategoryFacade::delete($id);
-        return view('Pages.Categorys.all')->with($response);
+        return redirect()->route('categories.all');
     }
 }

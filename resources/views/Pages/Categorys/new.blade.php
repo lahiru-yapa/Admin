@@ -30,9 +30,10 @@
     <div class="card border-primary mb-3" style="max-width: 18rem;">
         <div class="card-header">Edit your existing Category hear </div>
         <div class="card-body text-primary">
-            <form action="{{route('categories.store')}}" method="POST">
+            <form action="{{route('categories.store')}}" method="POST" enctype="multipart/form-data">
 
                 @csrf
+
                 <div class="mb-3">
                     <label for="exampleInputEmail1" class="form-label">Category Title</label>
                     <input type="text" class="form-control" name="title">
@@ -43,11 +44,12 @@
                 </div>
 
                 {{-- image upload part --}}
-                <div class="box__input">
-                    <input class="box__file" type="file" name="photo" id="file"
-                        data-multiple-caption="{count} files selected" multiple />
-                    <label for="file"><strong>Choose a file</strong><span class="box__dragndrop"> or drag it
-                            here</span>.</label>
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label class="form-control-label">Image</label>
+                        <input type="file" class="form-control form-control-alternative dropify" name="images"
+                            id="inp_image" accept="image/jpg, image/jpeg, image/png" required>
+                    </div>
                 </div>
                 {{-- image upload part ended --}}
                 <br><br>

@@ -4,50 +4,55 @@ namespace domain\Service;
 
 use App\Models\Category;
 use Illuminate\Support\Facades\DB;
+use infrastructure\Facades\ImagesFacade;
 
 class CategoryService
 {
 
     public function __construct()
     {
-        $this->Category = new Category();
+        $this->category = new Category();
     }
+
     public function all()
     {
-        return $this->Category::get();
+        return $this->category->all();
     }
 
-    public function create()
-    {
-        return $this->Category::get();
-    }
 
-    public function addNew($request)
+    public function store($request)
     {
 
-        $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-        ]);
+        if (isset($request['images'])) {
+            $image = ImagesFacade::store($request['images'], [1, 2, 3, 4, 5]);
+            $request['image'] = $image['created_images']->id;
+        }
 
-        $this->Category::create($request->all());
-        return $this->Category::get();
+        $this->category->create($request);
     }
 
-    public function getEditId($id)
+    public function get($id)
     {
-
-        return Category::findOrFail($id);
+        return $this->category->find($id);
     }
-    public function update($request)
+
+    public function update($category_id, $request)
     {
-
-        $this->Category->update($request->all());
-        return $this->Category::get();
+        if (isset($request['images'])) {
+            $image = ImagesFacade::store($request['images'], [1, 2, 3, 4, 5]);
+            $request['image'] = $image['created_images']->id;
+        }
+        $category = $this->category->find($category_id);
+        $category->update($this->edit($category, $request));
     }
+
+    protected function edit(Category $category, $data): array
+    {
+        return array_merge($category->toArray(), $data);
+    }
+
     public function delete($id)
     {
-        DB::table('categories')->delete($id);
-        return $this->Category::get();
+        $this->category->find($id)->delete();
     }
 }
