@@ -49,7 +49,7 @@
                     <label for="file"><strong>Choose a file</strong><span class="box__dragndrop"> or drag it
                             here</span>.</label>
                 </div>
-
+                {{-- image upload part ended --}}
                 <br><br>
                 <button type="submit" class="btn btn-primary">Submit</button>
 
