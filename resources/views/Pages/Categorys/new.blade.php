@@ -26,42 +26,53 @@
 </div>
 @endsection
 @section('content')
-<div class="categorycard">
-    <div class="card border-primary mb-3" style="max-width: 18rem;">
-        <div class="card-header">Edit your existing Category hear </div>
-        <div class="card-body text-primary">
-            <form action="{{route('categories.store')}}" method="POST" enctype="multipart/form-data">
 
-                @csrf
-
-                <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Category Title</label>
-                    <input type="text" class="form-control" name="title">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Discription</label>
-                    <input type="text" class="form-control" name="description">
-                </div>
-
-                {{-- image upload part --}}
-                <div class="col-lg-12">
-                    <div class="form-group">
-                        <label class="form-control-label">Image</label>
-                        <input type="file" class="form-control form-control-alternative dropify" name="images"
-                            id="inp_image" accept="image/jpg, image/jpeg, image/png" required>
+<div class="container">
+    <form action="{{route('categories.store')}}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="row">
+            <div class="col-lg-7">
+                <div class="card_body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
+                                <div class="mb-3">
+                                    <label for="exampleInputEmail1" class="form-label">Category Title</label>
+                                    <input type="text" class="form-control" name="title">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputPassword1" class="form-label">Description</label>
+                                    <textarea name="description" rows="4" class="form-control form-control-alternative"
+                                        id="description" required></textarea>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                {{-- image upload part ended --}}
-                <br><br>
-                <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+            <div class="col-lg-">
+                <div class="card_body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="form-group">
 
-            </form>
+                                <div class="form-group">
+                                    <label class="form-control-label">Image</label>
+                                    <input type="file" class="form-control form-control-alternative dropify"
+                                        name="images" id="inp_image" accept="image/jpg, image/jpeg, image/png" required>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
 </div>
-</div>
-
 @endsection
+
 @push('css')
 <style>
     .categorycard {
@@ -70,4 +81,13 @@
     }
 
 </style>
+@endpush
+@push('js')
+<script>
+    $(document).ready(function () {
+        $('.dropify').dropify();
+        CKEDITOR.replace('description');
+    });
+
+</script>
 @endpush
