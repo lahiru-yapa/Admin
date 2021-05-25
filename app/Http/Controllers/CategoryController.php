@@ -27,14 +27,15 @@ class CategoryController extends Controller
     }
     public function store(Request $request)
     {
-        $response['category'] = CategoryFacade::addNew($request);
+        $response['category'] = CategoryFacade::addNew($request->all());
         return view('Pages.Categorys.all')->with($response);
     }
     public function update(Request $request)
     {
 
-        $response['category'] = CategoryFacade::update($request);
-        return view('Pages.Categorys.all')->with($response);
+        CategoryFacade::update($request->all());
+        return redirect()->route('categories.all');
+        // return view('Pages.Categorys.all')->with($response);
     }
     public function delete(Request $request, $id)
     {
