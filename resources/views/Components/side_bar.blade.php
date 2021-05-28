@@ -23,6 +23,12 @@
                             <span class="nav-link-text">Category Management</span>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="{{route('item.all')}}">
+                            <i class="ni ni-tv-2 text-primary"></i>
+                            <span class="nav-link-text"> Item Management</span>
+                        </a>
+                    </li>
 
                 </ul>
 

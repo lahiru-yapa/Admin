@@ -19,7 +19,7 @@ class CategoryController extends Controller
     {
         return view('Pages.Categorys.new');
     }
-    public function edit($id)
+    public function edit(int $id)
     {
         $response['category'] = CategoryFacade::get($id);
 
@@ -30,15 +30,21 @@ class CategoryController extends Controller
         CategoryFacade::store($request->all());
         return redirect()->route('categories.all');
     }
-    public function update(Request $request, $category_id)
+    public function update(Request $request, int $category_id)
     {
 
         CategoryFacade::update($category_id, $request->all());
         return redirect()->route('categories.all');
     }
-    public function delete(Request $request, $id)
+    public function delete(int $id)
     {
-        $response['category'] = CategoryFacade::delete($id);
+        CategoryFacade::delete($id);
+        return redirect()->route('categories.all');
+    }
+
+    public function changeStatus(int $id)
+    {
+        CategoryFacade::changeStatus($id);
         return redirect()->route('categories.all');
     }
 }

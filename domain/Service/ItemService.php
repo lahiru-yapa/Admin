@@ -2,24 +2,38 @@
 
 namespace domain\Service;
 
+use App\Models\Item;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
+use infrastructure\Facades\ItemFacade;
+use infrastructure\Facades\CategoryFacade;
 use infrastructure\Facades\ImagesFacade;
 
-class CategoryService
+class ItemService
 {
 
     public function __construct()
     {
+        $this->item = new Item();
         $this->category = new Category();
     }
 
     public function all(): ?Collection
     {
+        return $this->item->all();
+    }
+
+    public function getcategory(): ?Collection
+    {
         return $this->category->all();
     }
 
+
+    public function get($id): ?item
+    {
+        return $this->item->find($id);
+    }
 
     public function store($request)
     {
@@ -28,47 +42,27 @@ class CategoryService
             $image = ImagesFacade::store($request['images'], [1, 2, 3, 4, 5]);
             $request['image'] = $image['created_images']->id;
         }
-
-        $this->category->create($request);
+        return $this->item->create($request);
     }
 
-    public function get($id): ?Category
+    public function update($item_id, $request): void
     {
-        return $this->category->find($id);
-    }
 
-    public function update($category_id, $request): void
-    {
         if (isset($request['images'])) {
             $image = ImagesFacade::store($request['images'], [1, 2, 3, 4, 5]);
             $request['image'] = $image['created_images']->id;
         }
-        $category = $this->category->find($category_id);
-        $category->update($this->edit($category, $request));
+        $item = $this->item->find($item_id);
+        $item->update($this->edit($item, $request));
     }
 
-    protected function edit(Category $category, $data): array
+    protected function edit(Item $item, $data): array
     {
-        return array_merge($category->toArray(), $data);
+        return array_merge($item->toArray(), $data);
     }
 
     public function delete($id): void
     {
-        $this->category->find($id)->delete();
-    }
-
-    public function changeStatus($category_id): int
-    {
-        $category = $this->category->find($category_id);
-
-        if ($category->status == 0) {
-            $category->status = 1;
-            $category->update();
-            return 1;
-        } else {
-            $category->status = 0;
-            $category->update();
-            return 0;
-        }
+        $this->item->find($id)->delete();
     }
 }
