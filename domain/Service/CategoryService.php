@@ -39,6 +39,7 @@ class CategoryService
 
     public function update($category_id, $request): void
     {
+
         if (isset($request['images'])) {
             $image = ImagesFacade::store($request['images'], [1, 2, 3, 4, 5]);
             $request['image'] = $image['created_images']->id;

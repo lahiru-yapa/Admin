@@ -12,6 +12,7 @@ class CategoryController extends Controller
     public function index()
     {
         $response['category'] = CategoryFacade::all();
+
         return view('Pages.Categorys.all')->with($response);
     }
 

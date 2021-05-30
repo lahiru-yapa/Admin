@@ -57,12 +57,11 @@
 
                                 <label class="form-control-label">Image</label>
                                 <input type="file" class="form-control form-control-alternative dropify" name="images"
-                                    id="inp_image" accept="image/jpg, image/jpeg, image/png" required>
+                                    id="inp_image"
+                                    data-default-file="{{$category->images? asset('uploads/'.$category->images->name) : asset('/uploads/no.jpg')}}"
+                                    accept="image/jpg, image/jpeg, image/png">
 
-                                @if ($category->images)
-                                <img src="{{config('images.access_path').'/thumb/35x35/'.$category->images->name}}"
-                                    alt="">
-                                @endif
+
 
                             </div>
                         </div>

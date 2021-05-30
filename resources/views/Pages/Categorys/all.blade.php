@@ -29,61 +29,66 @@
 @section('content')
 <div class="table-responsive py-4">
     <table class="table" id="categories">
-        <tr>
-            <th> ID</th>
-            <th> Title</th>
-            <th> Description </th>
-            <th> image</th>
-            <th> Status</th>
-            <th> Action</th>
-            introduction
-        </tr>
+        <thead class="thead-light">
+            <tr>
+                <th> ID</th>
+                <th> Title</th>
+                <th> Description </th>
+                <th> image</th>
+                <th> Status</th>
+                <th> Action</th>
+            </tr>
+        </thead>
+        <tbody class="list">
+            @foreach ($category as $data)
+            <tr>
+                <td>{{$data->id}} </td>
+                <td> {{$data->title}} </td>
+                <td> {!!$data->description!!} </td>
+                <td>
 
-        @foreach ($category as $data)
-        <tr>
-            <td>{{$data->id}} </td>
-            <td> {{$data->title}} </td>
-            <td> {!!$data->description!!} </td>
-            <td>
-                @if ($data->images)
-                <img src="{{config('images.access_path').'/thumb/35x35/'.$data->images->name}}" alt="">
-                @endif
-            </td>
-            <td>
-                @if ($data->status)
-                <span class="badge badge-success">publish</span>
-                @else
-                <span class="badge badge-warning">un</span>
-                @endif
-            </td>
-            <td>
-                <div class="dropdown no-arrow mb-1">
-                    <a class="btn btn-sm btn-icon-only text-dark" href="#" role="button" data-toggle="dropdown"
-                        aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-cog"></i>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-left shadow animated--fade-in"
-                        aria-labelledby="dropdownMenuButton" x-placement="bottom-start"
-                        style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
-                        <a class="dropdown-item edit-product" href="{{ route('categories.edit',$data->id) }}"
-                            class="btn btn-warning" title="">
-                            <i class="fas fa-edit"></i>&nbsp;Edit
+                    @if ($data->images)
+                    <img src="{{config('images.access_path').'/thumb/35x35/'.$data->images->name}}" alt="">
+                    @endif
+                </td>
+                <td>
+                    @if ($data->status)
+                    <span class="badge badge-success">publish</span>
+                    @else
+                    <span class="badge badge-warning">un</span>
+                    @endif
+                </td>
+                <td>
+                    <div class="dropdown no-arrow mb-1">
+                        <a class="btn btn-sm btn-icon-only text-dark" href="#" role="button" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-cog"></i>
                         </a>
-                        <a class="dropdown-item delete-product" href="{{ route('categories.delete',$data->id) }}"
-                            class="btn btn-danger" title=""><i class="far fa-trash-alt"></i>&nbsp;Delete</a>
-                        @if ($data->status == 1)
-                        <a class="dropdown-item change-status" href="{{ route('categories.status.change',$data->id) }}"
-                            class="btn btn-danger" title=""><i class="fas fa-times-circle"></i>&nbsp;Draft</a>
-                        @else
-                        <a class="dropdown-item change-status" href="{{ route('categories.status.change',$data->id) }}"
-                            class="btn btn-danger" title=""><i class="far fa-check-square"></i>&nbsp;Publish</a>
-                        @endif
+                        <div class="dropdown-menu dropdown-menu-left shadow animated--fade-in"
+                            aria-labelledby="dropdownMenuButton" x-placement="bottom-start"
+                            style="position: absolute; transform: translate3d(0px, 38px, 0px); top: 0px; left: 0px; will-change: transform;">
+                            <a class="dropdown-item edit-product" href="{{ route('categories.edit',$data->id) }}"
+                                class="btn btn-warning" title="">
+                                <i class="fas fa-edit"></i>&nbsp;Edit
+                            </a>
+                            <a class="dropdown-item delete-product" href="{{ route('categories.delete',$data->id) }}"
+                                class="btn btn-danger" title=""><i class="far fa-trash-alt"></i>&nbsp;Delete</a>
+                            @if ($data->status == 1)
+                            <a class="dropdown-item change-status"
+                                href="{{ route('categories.status.change',$data->id) }}" class="btn btn-danger"
+                                title=""><i class="fas fa-times-circle"></i>&nbsp;Draft</a>
+                            @else
+                            <a class="dropdown-item change-status"
+                                href="{{ route('categories.status.change',$data->id) }}" class="btn btn-danger"
+                                title=""><i class="far fa-check-square"></i>&nbsp;Publish</a>
+                            @endif
+                        </div>
                     </div>
-                </div>
-            </td>
+                </td>
 
-        </tr>
-        @endforeach
+            </tr>
+            @endforeach
+        </tbody>
     </table>
 </div>
 @endsection

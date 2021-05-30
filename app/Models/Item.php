@@ -11,4 +11,9 @@ class Item extends Model
     protected $fillable = [
         'category_id', 'title', 'introduction', 'description', 'image', 'Price', 'quantity', 'weight',
     ];
+
+    public function images()
+    {
+        return $this->hasOne(Image::class, 'id', 'image');
+    }
 }

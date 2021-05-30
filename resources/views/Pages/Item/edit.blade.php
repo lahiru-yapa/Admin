@@ -76,11 +76,21 @@
                                 <label for="category_id">Choose a Category:</label>
 
                                 <select id="cars" name="category_id" required>
+                                    <option value=""></option>
                                     @foreach ($category as $category)
                                     <option value="{{$category->id}}">{{$category->title}}</option>
                                     @endforeach
+                                </select><br><br>
+                                <div class="form-group">
 
-                                </select>
+                                    <label class="form-control-label">Image</label>
+                                    <input type="file" class="form-control form-control-alternative dropify"
+                                        name="images"
+                                        data-default-file="{{$item->images? asset('uploads/'.$item->images->name) : asset('/uploads/no.jpg')}}"
+                                        id="inp_image" accept="image/jpg, image/jpeg, image/png">
+
+
+                                </div>
 
                             </div>
                         </div>
@@ -111,5 +121,3 @@
 
 </script>
 @endpush
-{{-- ?
-sdcsdcscs --}}
